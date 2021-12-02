@@ -16,13 +16,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    cesdevice.cpp \
+    display.cpp \
+    electrodepads.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    cesdevice.h \
+    display.h \
+    electrodepads.h \
     mainwindow.h
 
 FORMS += \
+    display.ui \
+    electrodepads.ui \
     mainwindow.ui
 
 # Default rules for deployment.
