@@ -33,8 +33,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->beta, SIGNAL(released()), this, SLOT(slotBeta()));
     connect(ui->gamma, SIGNAL(released()), this, SLOT(slotGamma()));
 
-    //hooking up frequency select
+    //hooking up frequency select buttons
+    connect(ui->freq5, SIGNAL(released()), this, SLOT(slotFreq5()));
+    connect(ui->freq77, SIGNAL(released()), this, SLOT(slotFreq77()));
+    connect(ui->freq100, SIGNAL(released()), this, SLOT(slotFreq100()));
 
+    //hooking up setTreatment to start treatment button
+    connect(ui->startTreatment, SIGNAL(released()), this, SLOT(slotTreatment()));
 }
 
 MainWindow::~MainWindow()
@@ -96,6 +101,48 @@ void MainWindow::slotGamma(){
         qDebug() << "waveForm is now gamma";
     }
     return;
+}
+
+void MainWindow::slotFreq5(){
+    model->setFreq(0.5);
+    if(model->getFreq() == 0.5){
+        qDebug() << "frequency is now 0.5";
+    }
+    return;
+}
+
+void MainWindow::slotFreq77(){
+    model->setFreq(77);
+    if(model->getFreq() == 77){
+        qDebug() << "frequency is now 77";
+    }
+    return;
+}
+
+void MainWindow::slotFreq100(){
+    model->setFreq(100);
+    if(model->getFreq() == 100){
+        qDebug() << "frequency is now 100";
+    }
+    return;
+}
+
+void MainWindow::slotTreatment(){
+    if (model->getFreq() == 0){     // 0 is the default freq when nothings been selected
+        qDebug() << "cannot start treatment, no frequency chosen";
+        return;
+    } else if (model->getTime() == 0){  // 0 is default time when nothings been selected
+        qDebug() << "cannot start treatment, no time chosen";
+        return;
+    } else if (model->getWaveForm() != "Alpha" &&
+               model->getWaveForm() != "Beta" &&
+               model->getWaveForm() != "Gamma"){
+        qDebug() << "cannot start treatment, no waveForm chosen";
+        return;
+    }
+
+    qDebug() << "starting treatment now";
+    //treatment() can go here
 }
 
 

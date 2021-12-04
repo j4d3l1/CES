@@ -3,6 +3,8 @@
 CESDevice::CESDevice()
 {
     current = 100;      //default value for current
+    frequency = 0;
+    time = 0;
     elecpad = new ElectrodePads();
 
 }
@@ -21,13 +23,23 @@ bool CESDevice::getAttached(){
     return elecpad->getAttached();
 }
 
-void CESDevice::setTime(int i){
-    time = i;
-    return;
-}
 
 int CESDevice::getTime(){
     return time;
+}
+
+
+QString CESDevice::getWaveForm(){
+    return waveForm;
+}
+
+float CESDevice::getFreq(){
+    return frequency;
+}
+
+void CESDevice::setTime(int i){
+    time = i;
+    return;
 }
 
 void CESDevice::setWaveForm(QString s){
@@ -35,9 +47,11 @@ void CESDevice::setWaveForm(QString s){
     return;
 }
 
-QString CESDevice::getWaveForm(){
-    return waveForm;
+void CESDevice::setFreq(float f){
+    frequency = f;
+    return;
 }
+
 
 
 

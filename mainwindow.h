@@ -47,7 +47,7 @@ private:
     void updateDisplay();
 
 private slots:      // slot functions need to be defined in cpp before they can be uncommented
-    //bool slotSetTreatment(double, QString, int);
+
     void displayTimerSlot();
 
     void slotTime20();
@@ -57,6 +57,13 @@ private slots:      // slot functions need to be defined in cpp before they can 
     void slotAlpha();
     void slotBeta();
     void slotGamma();
+
+    void slotFreq5();
+    void slotFreq77();
+    void slotFreq100();
+
+    void slotTreatment();
+
 
 
 

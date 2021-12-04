@@ -25,18 +25,24 @@ public:
 
     //void signalLowBattery();
 
-    bool getAttached();
 
-    void setTime(int);
-    void setWaveForm(QString);
+    //getters
+    bool getAttached();     // doesnt work, the one it relies on doesnt work
     int getTime();
     QString getWaveForm();
+    float getFreq();
+
+    //setters
+    void setTime(int);
+    void setWaveForm(QString);
+    void setFreq(float);
+
 
 
 private:
     bool onOff;
     int current;
-    double frequency;
+    float frequency;
     QString waveForm;
     int batteryPower;
     int countDownCycle;
