@@ -50,6 +50,14 @@ private slots:      // slot functions need to be defined in cpp before they can 
     //bool slotSetTreatment(double, QString, int);
     void displayTimerSlot();
 
+    void slotTime20();
+    void slotTime40();
+    void slotTime60();
+
+    void slotAlpha();
+    void slotBeta();
+    void slotGamma();
+
 
 
 };
