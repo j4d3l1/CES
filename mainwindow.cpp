@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //instantiate the model
+    model = new CESDevice();
+
     //setup display UI
     display = new Display();
     ui->displayHolder->addWidget(display);
@@ -14,6 +17,11 @@ MainWindow::MainWindow(QWidget *parent)
     //setup electrode pad UI
     electrodePads = new ElectrodePads();
     ui->electrodePadHolder->addWidget(electrodePads);
+
+    //display timer set up
+    displayTimer = new QTimer(this);
+    connect(displayTimer, SIGNAL(timeout()), this, SLOT(displayTimerSlot()));
+    displayTimer->start(1000);
 
 
 }
@@ -23,7 +31,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-CESDevice* MainWindow::getModel(){
-    return model;
+
+void MainWindow::displayTimerSlot(){
+    qDebug() << "\n";
+    qDebug() << "displayTimer...";
+    display->displayAll(model);
 }
+
+
+
 

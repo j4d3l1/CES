@@ -18,16 +18,21 @@ public:
     explicit Display(QWidget *parent = nullptr);
     ~Display();
 
-    void displayAll(CESDevice);
+
+
+    void displayAll(CESDevice*);
 
 private:
     Ui::Display *ui;
 
-    void displayTreatment(CESDevice);
-    void displayTime(CESDevice);
-    void displayPowerLevel(CESDevice);
-    void displayBattery(CESDevice);
-    void displayAttached(CESDevice);
+    QTimer *displayTimer;
+
+    //void displayTreatment(CESDevice);
+    //void displayTime(CESDevice);
+    //void displayPowerLevel(CESDevice);
+    //void displayBattery(CESDevice);
+    void displayAttached(CESDevice*);
+
 
 };
 

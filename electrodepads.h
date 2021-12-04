@@ -26,6 +26,8 @@ public:
 
     void signalOff();
 
+    bool getAttached();
+
 private:
     Ui::ElectrodePads *ui;
 

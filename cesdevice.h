@@ -13,14 +13,17 @@
 #include <QRandomGenerator>
 #include <QDateTime>
 
+#include "electrodepads.h"
+
 class CESDevice
 {
 public:
     CESDevice();
+    ~CESDevice();
 
     void signalLowBattery();
 
-
+    bool getAttached();
 
 
 private:
@@ -32,6 +35,7 @@ private:
     int countDownCycle;
     QDateTime timeStart;
     QDateTime timeEnd;
+    ElectrodePads *elecpad;
     //Recording lastTreatment;        // requires Recording class to be defined
 
     void treatment();

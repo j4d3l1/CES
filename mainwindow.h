@@ -13,18 +13,13 @@
 #include <QRandomGenerator>
 
 #include "display.h"
-#include "electrodepads.h"
 #include "cesdevice.h"
+#include "electrodepads.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 //hi
-
-//hi
-
-//another comment
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -33,7 +28,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    CESDevice* getModel();
+
 
 private:
     Ui::MainWindow *ui;
@@ -45,7 +40,7 @@ private:
     //state of controller
     //Mode mode;            // need to define enum Mode first
     CESDevice *model;
-    QTimer *timer;
+    QTimer *displayTimer;
 
     //functions
     void signalIdle();
@@ -53,7 +48,7 @@ private:
 
 private slots:      // slot functions need to be defined in cpp before they can be uncommented
     //bool slotSetTreatment(double, QString, int);
-
+    void displayTimerSlot();
 
 
 
