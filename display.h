@@ -26,9 +26,9 @@ private:
     Ui::Display *ui;
 
     QTimer *displayTimer;
-
     //void displayTreatment(CESDevice);
-    //void displayTime(CESDevice);
+    void displayTime(CESDevice*);
+    void displayClock(CESDevice*);
     //void displayPowerLevel(CESDevice);
     //void displayBattery(CESDevice);
     void displayAttached(CESDevice*);

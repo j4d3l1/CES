@@ -29,6 +29,7 @@ public:
     //getters
     bool getAttached();     // doesnt work, the one it relies on doesnt work
     int getTime();
+    QTime getClock();
     QString getWaveForm();
     float getFreq();
 
@@ -47,6 +48,7 @@ private:
     int batteryPower;
     int countDownCycle;
     int time;
+    QTime clock;
     QDateTime timeStart;
     QDateTime timeEnd;
     ElectrodePads *elecpad;

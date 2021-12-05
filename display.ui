@@ -58,6 +58,9 @@
      <height>23</height>
     </rect>
    </property>
+   <property name="intValue" stdset="0">
+    <number>0</number>
+   </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">

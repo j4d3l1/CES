@@ -28,6 +28,10 @@ int CESDevice::getTime(){
     return time;
 }
 
+QTime CESDevice::getClock(){
+    clock = QTime::currentTime();
+    return clock;
+}
 
 QString CESDevice::getWaveForm(){
     return waveForm;
