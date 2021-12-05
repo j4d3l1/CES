@@ -79,19 +79,6 @@
      <string>Record Button</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="onOffToggle">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>111</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>On/Off Button</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
@@ -314,6 +301,19 @@
     </property>
     <property name="text">
      <string>Attach/Detach Electrode Pads</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="onOffToggle">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>101</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>On/Off</string>
     </property>
    </widget>
   </widget>

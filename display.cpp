@@ -21,6 +21,8 @@ void Display::displayAll(CESDevice *d){
     displayAttached(d);
     displayClock(d);
     displayFreq(d);
+    displayTime(d);
+    displayWaveForm(d);
     return;
 }
 
@@ -34,7 +36,7 @@ void Display::displayAttached(CESDevice *d){
     return;
 }
 
-void Display::displayTime(CESDevice *d){
+void Display::displayCountDown(CESDevice *d){        // was previously called displayTime
     QTime time = QTime::currentTime();
     QString text = time.toString("hh:mm");
 
@@ -57,5 +59,20 @@ void Display::displayFreq(CESDevice *d){
     float f = d->getFreq();
     QString s = QString::number(f);
     ui->frequencySelected->setText(s);
+    return;
+}
+
+void Display::displayTime(CESDevice *d){        // just shows the time selected
+    qDebug() << "displayTime was called";
+    int i = d->getTime();
+    QString s = QString::number(i);
+    ui->timeSelected->setText(s);
+    return;
+}
+
+void Display::displayWaveForm(CESDevice *d){        // just shows the time selected
+    qDebug() << "displayWaveForm was called";
+    QString s = d->getWaveForm();
+    ui->waveformSelected->setText(s);
     return;
 }
