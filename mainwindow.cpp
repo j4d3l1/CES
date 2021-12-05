@@ -10,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
     //instantiate the model
     model = new CESDevice();
 
+    //set up mode
+    mode = POWER_OFF;
+
     //setup display UI
     display = new Display();
     ui->displayHolder->addWidget(display);
@@ -67,76 +70,100 @@ void MainWindow::slotAttachToggle(){
 }
 
 void MainWindow::slotTime20(){
-    model->setTime(20);
-    if(model->getTime() == 20){
-        qDebug() << "time is now 20";
+    if(mode == IDLE){
+
+        model->setTime(20);
+        if(model->getTime() == 20){
+            qDebug() << "time is now 20";
+        }
     }
     return;
 }
 
 void MainWindow::slotTime40(){
-    model->setTime(40);
-    if(model->getTime() == 40){
-        qDebug() << "time is now 40";
+    if(mode == IDLE){
+
+        model->setTime(40);
+        if(model->getTime() == 40){
+            qDebug() << "time is now 40";
+        }
     }
     return;
 }
 
 void MainWindow::slotTime60(){
-    model->setTime(60);
-    if(model->getTime() == 60){
-        qDebug() << "time is now 60";
+    if(mode == IDLE){
+
+        model->setTime(60);
+        if(model->getTime() == 60){
+            qDebug() << "time is now 60";
+        }
     }
     return;
 }
 
 void MainWindow::slotAlpha(){
-    model->setWaveForm("Alpha");
-    if(model->getWaveForm() == "Alpha"){
-        qDebug() << "waveForm is now alpha";
+    if(mode == IDLE){
+
+        model->setWaveForm("Alpha");
+        if(model->getWaveForm() == "Alpha"){
+            qDebug() << "waveForm is now alpha";
+        }
     }
     return;
 }
 
 
 void MainWindow::slotBeta(){
-    model->setWaveForm("Beta");
-    if(model->getWaveForm() == "Beta"){
-        qDebug() << "waveForm is now beta";
+    if(mode == IDLE){
+
+        model->setWaveForm("Beta");
+        if(model->getWaveForm() == "Beta"){
+            qDebug() << "waveForm is now beta";
+        }
     }
     return;
 }
 
 void MainWindow::slotGamma(){
-    model->setWaveForm("Gamma");
-    if(model->getWaveForm() == "Gamma"){
-        qDebug() << "waveForm is now gamma";
+    if(mode == IDLE){
+        model->setWaveForm("Gamma");
+        if(model->getWaveForm() == "Gamma"){
+            qDebug() << "waveForm is now gamma";
+        }
     }
     return;
 }
 
 void MainWindow::slotFreq5(){
-    model->setFreq(0.5);
-    if(model->getFreq() == 0.5){
-        qDebug() << "frequency is now 0.5";
+    if(mode == IDLE){
+        model->setFreq(0.5);
+        if(model->getFreq() == 0.5){
+            qDebug() << "frequency is now 0.5";
+        }
     }
     return;
 }
 
 void MainWindow::slotFreq77(){
-    model->setFreq(77);
-    if(model->getFreq() == 77){
-        qDebug() << "frequency is now 77";
+    if(mode == IDLE){
+        model->setFreq(77);
+        if(model->getFreq() == 77){
+            qDebug() << "frequency is now 77";
+        }
     }
     return;
 }
 
 void MainWindow::slotFreq100(){
-    model->setFreq(100);
-    if(model->getFreq() == 100){
-        qDebug() << "frequency is now 100";
+    if(mode == IDLE){
+        model->setFreq(100);
+        if(model->getFreq() == 100){
+            qDebug() << "frequency is now 100";
+        }
     }
     return;
+
 }
 
 void MainWindow::slotTreatment(){
@@ -153,9 +180,12 @@ void MainWindow::slotTreatment(){
         return;
     }
 
+    mode = IN_SESSION;
     qDebug() << "starting treatment now";
     //treatment() can go here
 }
+
+
 
 
 

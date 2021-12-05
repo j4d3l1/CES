@@ -14,6 +14,7 @@
 
 #include "display.h"
 #include "cesdevice.h"
+#include "Mode.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -37,7 +38,7 @@ private:
     Display *display;
 
     //state of controller
-    //Mode mode;            // need to define enum Mode first
+    Mode mode;            // need to define enum Mode first
     CESDevice *model;
     QTimer *displayTimer;
 
