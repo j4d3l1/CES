@@ -23,6 +23,7 @@ SOURCES += \
     recording.cpp
 
 HEADERS += \
+    Mode.h \
     cesdevice.h \
     display.h \
     mainwindow.h \
