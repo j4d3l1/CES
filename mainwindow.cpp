@@ -56,7 +56,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::displayTimerSlot(){
     qDebug() << "\n";
-    qDebug() << "displayTimer...";
+    //qDebug() << "displayTimer...";
     display->displayAll(model);
 }
 
@@ -170,21 +170,27 @@ void MainWindow::slotFreq100(){
 }
 
 void MainWindow::slotTreatment(){
-    if (model->getFreq() == 0){     // 0 is the default freq when nothings been selected
-        qDebug() << "cannot start treatment, no frequency chosen";
-        return;
-    } else if (model->getTime() == 0){  // 0 is default time when nothings been selected
-        qDebug() << "cannot start treatment, no time chosen";
-        return;
-    } else if (model->getWaveForm() != "Alpha" &&
-               model->getWaveForm() != "Beta" &&
-               model->getWaveForm() != "Gamma"){
-        qDebug() << "cannot start treatment, no waveForm chosen";
+    if(mode == IDLE){
+        if (model->getFreq() == 0){     // 0 is the default freq when nothings been selected
+            qDebug() << "cannot start treatment, no frequency chosen";
+            return;
+        } else if (model->getTime() == 0){  // 0 is default time when nothings been selected
+            qDebug() << "cannot start treatment, no time chosen";
+            return;
+        } else if (model->getWaveForm() != "Alpha" &&
+                   model->getWaveForm() != "Beta" &&
+                   model->getWaveForm() != "Gamma"){
+            qDebug() << "cannot start treatment, no waveForm chosen";
+            return;
+        }
+
+
+        mode = IN_SESSION;
+        qDebug() << "starting treatment now";
         return;
     }
 
-    mode = IN_SESSION;
-    qDebug() << "starting treatment now";
+    qDebug() << "cannot start treatment, device is not in IDLE";
     //treatment() can go here
 }
 
