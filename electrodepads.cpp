@@ -13,8 +13,9 @@ ElectrodePads::ElectrodePads(QWidget *parent) :
 
 
     //connectiing attach and detach slots
-    connect(ui->attach, SIGNAL(released()), this, SLOT(slotAttach()));
-    connect(ui->detach, SIGNAL(released()), this, SLOT(slotDetach()));
+    //connect(ui->attach, SIGNAL(released()), this, SLOT(slotAttach()));
+    //connect(ui->detach, SIGNAL(released()), this, SLOT(slotDetach()));
+    connect(ui->attachToggle, SIGNAL(pressed()), this, SLOT(slotAttachToggle()));
 
 }
 
@@ -39,9 +40,15 @@ bool ElectrodePads::getAttached(){
     return attached;
 }
 
+void ElectrodePads::setAttached(bool b){
+    attached = b;
+    return;
+}
+
+/*
 void ElectrodePads::slotAttach(){
     qDebug() << "the electrodePads are attached";
-    attached = true;
+    setAttached(true);
     if (attached){
         qDebug() << "attached is true";
     }else{
@@ -52,11 +59,23 @@ void ElectrodePads::slotAttach(){
 
 void ElectrodePads::slotDetach(){
     qDebug() << "the electrodePads are detached";
-    attached = false;
+    setAttached(false);
     if (attached){
         qDebug() << "attached is true";
     }else{
         qDebug() << "attached is false";
     }
     return;
+}
+*/
+
+void ElectrodePads::slotAttachToggle(){
+    qDebug() << "toggled";
+    setAttached(!attached);
+    if (attached){
+        qDebug() << "attached is true";
+    }else{
+        qDebug() << "attached is false";
+    }
+    //return;
 }

@@ -2,10 +2,11 @@
 
 CESDevice::CESDevice()
 {
+    //default values
     current = 100;      //default value for current
     frequency = 0;
     time = 0;
-    elecpad = new ElectrodePads();
+    attached = false;
 
 }
 

@@ -20,6 +20,7 @@ void Display::displayAll(CESDevice *d){
     qDebug() << "displayAll was called";
     displayAttached(d);
     displayClock(d);
+    displayFreq(d);
     return;
 }
 
@@ -51,3 +52,10 @@ void Display::displayClock(CESDevice *d){
     ui->clockDisplay->display(text);
 }
 
+void Display::displayFreq(CESDevice *d){
+    qDebug() << "displayFreq was called";
+    float f = d->getFreq();
+    QString s = QString::number(f);
+    ui->frequencySelected->setText(s);
+    return;
+}

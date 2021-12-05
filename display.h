@@ -32,6 +32,7 @@ private:
     //void displayPowerLevel(CESDevice);
     //void displayBattery(CESDevice);
     void displayAttached(CESDevice*);
+    void displayFreq(CESDevice*);
 
 
 };

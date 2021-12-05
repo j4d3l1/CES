@@ -18,7 +18,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     cesdevice.cpp \
     display.cpp \
-    electrodepads.cpp \
     main.cpp \
     mainwindow.cpp \
     recording.cpp
@@ -26,13 +25,11 @@ SOURCES += \
 HEADERS += \
     cesdevice.h \
     display.h \
-    electrodepads.h \
     mainwindow.h \
     recording.h
 
 FORMS += \
     display.ui \
-    electrodepads.ui \
     mainwindow.ui
 
 # Default rules for deployment.

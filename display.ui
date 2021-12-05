@@ -176,7 +176,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>DETACHED</string>
+    <string>Detached</string>
    </property>
   </widget>
   <widget class="QLabel" name="batteryWarningDisplay">
@@ -202,7 +202,7 @@
     </rect>
    </property>
    <property name="text">
-    <string/>
+    <string>None</string>
    </property>
   </widget>
   <widget class="QLabel" name="waveformSelected">
@@ -215,7 +215,7 @@
     </rect>
    </property>
    <property name="text">
-    <string/>
+    <string>None</string>
    </property>
   </widget>
   <widget class="QLabel" name="timeSelected">
@@ -228,7 +228,7 @@
     </rect>
    </property>
    <property name="text">
-    <string/>
+    <string>None</string>
    </property>
   </widget>
   <widget class="QLabel" name="powerLevelDisplay">

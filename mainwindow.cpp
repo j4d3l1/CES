@@ -23,6 +23,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(displayTimer, SIGNAL(timeout()), this, SLOT(displayTimerSlot()));
     displayTimer->start(1000);
 
+
+    //hooking up attach/detach toggle
+    connect(ui->attachToggle, SIGNAL(pressed()), this, SLOT(slotAttachToggle()));
+
     //hooking up time select buttons
     connect(ui->time20, SIGNAL(released()), this, SLOT(slotTime20()));
     connect(ui->time40, SIGNAL(released()), this, SLOT(slotTime40()));
@@ -52,6 +56,18 @@ void MainWindow::displayTimerSlot(){
     qDebug() << "\n";
     qDebug() << "displayTimer...";
     display->displayAll(model);
+}
+
+
+void ElectrodePads::slotAttachToggle(){
+    qDebug() << "toggled";
+    model->setAttached(!model->getAttached());
+    if (model->getAttached()){
+        qDebug() << "attached is true";
+    }else{
+        qDebug() << "attached is false";
+    }
+    //return;
 }
 
 void MainWindow::slotTime20(){

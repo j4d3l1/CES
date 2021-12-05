@@ -42,6 +42,7 @@ public:
 
 private:
     bool onOff;
+    bool attached;
     int current;
     float frequency;
     QString waveForm;
