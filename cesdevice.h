@@ -32,6 +32,7 @@ public:
     QTime getClock();
     QString getWaveForm();
     float getFreq();
+    bool getTurnedOn();
 
     //setters
     void setAttached(bool);
@@ -39,10 +40,12 @@ public:
     void setWaveForm(QString);
     void setFreq(float);
 
+    void turnOnOff();
+
 
 
 private:
-    bool onOff;
+    bool turnedOn;
     bool attached;
     int current;
     float frequency;
@@ -63,7 +66,6 @@ public slots:
     //void slotSetTreatment();
     //void slotUpPower();     // increases power by 50
     //void slotDownPower();   // decreases power by 100
-    //void slotOnOffPower();
     //void slotRecord();
 
 

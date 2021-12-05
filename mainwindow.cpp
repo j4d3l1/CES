@@ -43,6 +43,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //hooking up setTreatment to start treatment button
     connect(ui->startTreatment, SIGNAL(released()), this, SLOT(slotTreatment()));
+
+    //hooking up powerOnOff button
+    connect(ui->onOffToggle, SIGNAL(released()), this, SLOT(slotOnOffPower()));
 }
 
 MainWindow::~MainWindow()
@@ -186,6 +189,16 @@ void MainWindow::slotTreatment(){
 }
 
 
+void MainWindow::slotOnOffPower(){
+    model->turnOnOff();
+    if(model->getTurnedOn()){
+        mode = IDLE;
+        qDebug() << "Turned on device";
+    } else {
+        mode = POWER_OFF;
+        qDebug() << "Turned off device";
 
+    }
+}
 
 

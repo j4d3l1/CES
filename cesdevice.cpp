@@ -3,6 +3,7 @@
 CESDevice::CESDevice()
 {
     //default values
+    turnedOn = false;
     current = 100;      //default value for current
     frequency = 0;
     time = 0;
@@ -13,8 +14,6 @@ CESDevice::CESDevice()
 CESDevice::~CESDevice(){
 
 }
-
-
 
 
 int CESDevice::getTime(){
@@ -38,6 +37,10 @@ bool CESDevice::getAttached(){
     return attached;
 }
 
+bool CESDevice::getTurnedOn(){
+    return turnedOn;
+}
+
 void CESDevice::setTime(int i){
     time = i;
     return;
@@ -57,6 +60,11 @@ void CESDevice::setAttached(bool b){
     attached = b;
     return;
 }
+
+void CESDevice::turnOnOff(){
+    turnedOn = !turnedOn;
+}
+
 
 
 

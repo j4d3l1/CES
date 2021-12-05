@@ -65,6 +65,7 @@ private slots:      // slot functions need to be defined in cpp before they can 
     void slotFreq100();
 
     void slotTreatment();
+    void slotOnOffPower();
 
 
 
