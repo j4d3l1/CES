@@ -79,7 +79,7 @@
      <string>Record Button</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="onOffButton">
+   <widget class="QRadioButton" name="onOffToggle">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -257,30 +257,6 @@
      <string>DISPLAY</string>
     </property>
    </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_4">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>360</y>
-      <width>161</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="electrodePadHolder"/>
-   </widget>
-   <widget class="QLabel" name="label_11">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>330</y>
-      <width>101</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ELECTRODE PAD</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
@@ -326,6 +302,19 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QCheckBox" name="attachToggle">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>10</y>
+      <width>191</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Attach/Detach Electrode Pads</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

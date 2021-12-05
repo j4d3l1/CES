@@ -13,7 +13,7 @@
 #include <QRandomGenerator>
 #include <QDateTime>
 
-#include "electrodepads.h"
+
 
 class CESDevice
 {
@@ -27,13 +27,14 @@ public:
 
 
     //getters
-    bool getAttached();     // doesnt work, the one it relies on doesnt work
+    bool getAttached();
     int getTime();
     QTime getClock();
     QString getWaveForm();
     float getFreq();
 
     //setters
+    void setAttached(bool);
     void setTime(int);
     void setWaveForm(QString);
     void setFreq(float);
@@ -52,7 +53,6 @@ private:
     QTime clock;
     QDateTime timeStart;
     QDateTime timeEnd;
-    ElectrodePads *elecpad;
     //Recording lastTreatment;        // requires Recording class to be defined
 
     //void treatment();

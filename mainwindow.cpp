@@ -14,10 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
     display = new Display();
     ui->displayHolder->addWidget(display);
 
-    //setup electrode pad UI
-    electrodePads = new ElectrodePads();
-    ui->electrodePadHolder->addWidget(electrodePads);
-
     //display timer set up
     displayTimer = new QTimer(this);
     connect(displayTimer, SIGNAL(timeout()), this, SLOT(displayTimerSlot()));
@@ -59,7 +55,7 @@ void MainWindow::displayTimerSlot(){
 }
 
 
-void ElectrodePads::slotAttachToggle(){
+void MainWindow::slotAttachToggle(){
     qDebug() << "toggled";
     model->setAttached(!model->getAttached());
     if (model->getAttached()){

@@ -11,18 +11,10 @@ CESDevice::CESDevice()
 }
 
 CESDevice::~CESDevice(){
-    delete elecpad;
+
 }
 
-bool CESDevice::getAttached(){
 
-    if (elecpad->getAttached()){
-        qDebug() << "ces getAttached called is returning true";
-    }else{
-        qDebug() << "ces getAttached called is returning false";
-    }
-    return elecpad->getAttached();
-}
 
 
 int CESDevice::getTime(){
@@ -42,6 +34,10 @@ float CESDevice::getFreq(){
     return frequency;
 }
 
+bool CESDevice::getAttached(){
+    return attached;
+}
+
 void CESDevice::setTime(int i){
     time = i;
     return;
@@ -54,6 +50,11 @@ void CESDevice::setWaveForm(QString s){
 
 void CESDevice::setFreq(float f){
     frequency = f;
+    return;
+}
+
+void CESDevice::setAttached(bool b){
+    attached = b;
     return;
 }
 

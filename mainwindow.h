@@ -14,7 +14,7 @@
 
 #include "display.h"
 #include "cesdevice.h"
-#include "electrodepads.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -35,7 +35,6 @@ private:
 
     //UI elements
     Display *display;
-    ElectrodePads *electrodePads;
 
     //state of controller
     //Mode mode;            // need to define enum Mode first
@@ -49,6 +48,8 @@ private:
 private slots:      // slot functions need to be defined in cpp before they can be uncommented
 
     void displayTimerSlot();
+
+    void slotAttachToggle();
 
     void slotTime20();
     void slotTime40();
