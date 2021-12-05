@@ -20,13 +20,15 @@ SOURCES += \
     display.cpp \
     electrodepads.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    recording.cpp
 
 HEADERS += \
     cesdevice.h \
     display.h \
     electrodepads.h \
-    mainwindow.h
+    mainwindow.h \
+    recording.h
 
 FORMS += \
     display.ui \
