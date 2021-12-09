@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
     //hooking up upPowerLevel and downPowerLevel buttons
     connect(ui->powerLevelUpButton, SIGNAL(released()), this, SLOT(slotUpPower()));
     connect(ui->powerLevelDownButton, SIGNAL(released()), this, SLOT(slotDownPower()));
+
 }
 
 MainWindow::~MainWindow()
@@ -99,7 +100,6 @@ void MainWindow::slotAttachToggle(){
 
 void MainWindow::slotTime20(){
     if(mode == IDLE){
-
         model->setTime(20);
         if(model->getTime() == 20){
             qDebug() << "time is now 20";
@@ -215,6 +215,7 @@ void MainWindow::slotDownPower(){
 void MainWindow::slotTreatment(){
     if(mode == IDLE){
         if (model->getFreq() == 0){     // 0 is the default freq when nothings been selected
+            ui->errorMessages->setText("cannot start treatment, no frequency chosen");
             qDebug() << "cannot start treatment, no frequency chosen";
             return;
         } else if (model->getTime() == 0){  // 0 is default time when nothings been selected
@@ -245,7 +246,6 @@ void MainWindow::slotTreatment(){
     //model->treatment() can go here??
         // at end of treatment, the display freq and time should go back to 0, and selected wavelength should be blank again
 }
-
 
 void MainWindow::slotOnOffPower(){
     model->turnOnOff();
