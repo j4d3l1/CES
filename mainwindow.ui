@@ -326,10 +326,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>Error Messages</string>
+     <string>Status Message</string>
     </property>
    </widget>
-   <widget class="QLabel" name="errorMessages">
+   <widget class="QLabel" name="statusMessage">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -381,7 +381,7 @@
      <x>0</x>
      <y>0</y>
      <width>717</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

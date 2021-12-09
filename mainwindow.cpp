@@ -245,25 +245,28 @@ void MainWindow::slotDownPower(){
 void MainWindow::slotTreatment(){
     if(mode == IDLE){
         if (model->getFreq() == 0){     // 0 is the default freq when nothings been selected
-            ui->errorMessages->setText("cannot start treatment, no frequency chosen");
+            ui->statusMessage->setText("Cannot start treatment, no frequency chosen.");
             qDebug() << "cannot start treatment, no frequency chosen";
             return;
         } else if (model->getTime() == 0){  // 0 is default time when nothings been selected
+            ui->statusMessage->setText("Cannot start treatment, no time chosen.");
             qDebug() << "cannot start treatment, no time chosen";
             return;
         } else if (model->getWaveForm() != "Alpha" &&
                    model->getWaveForm() != "Beta" &&
                    model->getWaveForm() != "Gamma"){
             qDebug() << "cannot start treatment, no waveForm chosen";
+             ui->statusMessage->setText("Cannot start treatment, no waveForm chosen.");
             return;
         } else if(model->getAttached() == false){
+            ui->statusMessage->setText("Cannot start treatment, electrodes not attached.");
             qDebug() << "cannot start treatment, electrodes not attached";
             return;
         }
 
 
         // preparing to start treatment:
-
+        ui->statusMessage->setText("Treatment in progress.");
         // CAPTURE WAVEFORM, FREQUENCY, DURATION, AND TIMESTART HERE!!! FOR CESDevice's LastTreatment
         // CAPTURE current, endtime, at the end of the treatment - inside displayTimer?
         Recording* last = model->getLastTreatment();
@@ -279,7 +282,7 @@ void MainWindow::slotTreatment(){
         qDebug() << "starting treatment now";
         return;
     }
-
+    ui->statusMessage->setText("Cannot start treatment, device is not in IDLE.");
     qDebug() << "cannot start treatment, device is not in IDLE";
     //model->treatment() can go here??
         // at end of treatment, the display freq and time should go back to 0, and selected wavelength should be blank again
@@ -289,9 +292,11 @@ void MainWindow::slotOnOffPower(){
     model->turnOnOff();
     if(model->getTurnedOn()){
         mode = IDLE;
+        ui->statusMessage->setText(""); // Clear status message when device is on/off
         qDebug() << "Turned on device";
     } else {
         mode = POWER_OFF;
+        ui->statusMessage->setText("");
         qDebug() << "Turned off device";
 
     }
