@@ -13,7 +13,7 @@
 #include <QRandomGenerator>
 #include <QDateTime>
 
-
+#include "recording.h"
 
 class CESDevice
 {
@@ -34,6 +34,7 @@ public:
     float getFreq();
     bool getTurnedOn();
     int getPowerLevel();
+    Recording* getLastTreatment();
 
     //setters
     void setAttached(bool);
@@ -41,6 +42,7 @@ public:
     void setWaveForm(QString);
     void setFreq(float);
     void setPowerLevel(int);
+    void setTimer(int);
 
     void turnOnOff();
 
@@ -56,10 +58,11 @@ private:
     int batteryPower;
     int countDownCycle;
     int time;
+    int timer;
     QTime clock;
     QDateTime timeStart;
     QDateTime timeEnd;
-    //Recording lastTreatment;        // requires Recording class to be defined
+    Recording *lastTreatment;
 
     //void treatment();
 

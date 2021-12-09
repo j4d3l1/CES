@@ -10,11 +10,12 @@ CESDevice::CESDevice()
     waveForm = "None";
     attached = false;
     powerLevel = 0;
+    lastTreatment = new Recording();
 
 }
 
 CESDevice::~CESDevice(){
-
+    //delete lastTreatment;
 }
 
 
@@ -47,6 +48,10 @@ int CESDevice::getPowerLevel(){
     return powerLevel;
 }
 
+Recording* CESDevice::getLastTreatment(){
+    return lastTreatment;
+}
+
 void CESDevice::setTime(int i){
     time = i;
     return;
@@ -69,6 +74,11 @@ void CESDevice::setAttached(bool b){
 
 void CESDevice::setPowerLevel(int i){
     powerLevel = i;
+    return;
+}
+
+void CESDevice::setTimer(int i){
+    timer = i;
     return;
 }
 

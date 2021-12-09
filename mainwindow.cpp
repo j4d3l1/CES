@@ -61,6 +61,18 @@ MainWindow::~MainWindow()
 void MainWindow::displayTimerSlot(){
     qDebug() << "\n";
     //qDebug() << "displayTimer...";
+
+    // battery should just be constantly draining if state isnt power_off, not just during treatment, just drop it 1% per loop
+    // of the timer, then when it reaches 0 turn the mode to power_off
+
+    //treatment logic in here???
+    if(mode == IN_SESSION){
+        //if the electrodes are detached, go back to idle, reset freq, waveform, time, and timer to 0
+        //else
+            //timer counting down
+
+    }
+
     display->displayAll(model);
 }
 
@@ -209,11 +221,19 @@ void MainWindow::slotTreatment(){
 
         mode = IN_SESSION;
         qDebug() << "starting treatment now";
+
+        // CAPTURE WAVEFORM, FREQUENCY, DURATION, AND TIMESTART HERE!!! FOR CESDevice's LastTreatment
+        // CAPTURE current, endtime, at the end of the treatment - inside displayTimer?
+        Recording* last = model->getLastTreatment();
+        last->setRFrequency(model->getFreq());
+        last->setRWaveForm(model->getWaveForm());
+        last->setRDuration(model->getTime());
+        last->setRStart(QDateTime::currentDateTime());
         return;
     }
 
     qDebug() << "cannot start treatment, device is not in IDLE";
-    //treatment() can go here
+    //model->treatment() can go here??
         // at end of treatment, the display freq and time should go back to 0, and selected wavelength should be blank again
 }
 
