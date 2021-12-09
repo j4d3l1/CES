@@ -47,6 +47,9 @@ public:
     void setTimer(int);
     void setBattery(float);
 
+    void clearHistory();                    // empties history
+    void addEntry(Recording*);              // adds a recording to history
+
     void turnOnOff();
 
 
@@ -66,6 +69,7 @@ private:
     QDateTime timeStart;
     QDateTime timeEnd;
     Recording *lastTreatment;
+    QVector<Recording*> history;        // all past treatments
 
     //void treatment();
 

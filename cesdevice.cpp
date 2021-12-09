@@ -4,7 +4,7 @@ CESDevice::CESDevice()
 {
     //default values
     turnedOn = false;
-    current = 100;      //default value for current
+    current = 0;      //default value for current when device is off, 100 when not off
     frequency = 0;
     time = 0;
     waveForm = "None";
@@ -12,6 +12,7 @@ CESDevice::CESDevice()
     powerLevel = 0;
     lastTreatment = new Recording();
     batteryPower = 100;
+
 
 }
 
@@ -100,7 +101,24 @@ void CESDevice::turnOnOff(){
     turnedOn = !turnedOn;
 }
 
+void CESDevice::clearHistory(){
+    history.clear();
 
+}
+
+void CESDevice::addEntry(Recording* r){
+    // need to make a copy of r to put in history, r doesn't change
+    Recording* entry = new Recording();
+    entry->setRCurrent(r->getRCurrent());
+    entry->setRFrequency(r->getRFrequency());
+    entry->setRWaveForm(r->getRWaveForm());
+    entry->setRStart(r->getRStart());
+    entry->setREnd(r->getREnd());
+    entry->setRDuration(r->getRDuration());
+
+    history.append(entry);
+
+}
 
 
 

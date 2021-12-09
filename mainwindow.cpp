@@ -51,6 +51,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->powerLevelUpButton, SIGNAL(released()), this, SLOT(slotUpPower()));
     connect(ui->powerLevelDownButton, SIGNAL(released()), this, SLOT(slotDownPower()));
 
+
+    //hooking up record and do not record buttons
+    //they are default invisible
+    ui->recordButton->setVisible(false);
+    ui->dontRecordButton->setVisible(false);
+    connect(ui->recordButton, SIGNAL(released()), this, SLOT(slotRecord()));
+    connect(ui->dontRecordButton, SIGNAL(released()), this, SLOT(slotDontRecord()));
+
 }
 
 MainWindow::~MainWindow()
@@ -63,6 +71,12 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
     qDebug() << "\n";
     //qDebug() << "displayTimer...";
 
+    //if state isnt RECORDING, make record buttons unavailable so can't record
+    if(mode != RECORDING){
+        ui->recordButton->setVisible(false);
+        ui->dontRecordButton->setVisible(false);
+    }
+
     // draining battery
     if(mode != POWER_OFF){
         // battery should just be constantly draining if state isnt power_off
@@ -71,9 +85,20 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
         //if the battery reaches 10% or below, can display warning in an ifblock here
 
         if(model->getBattery() <= 0){       // if the battery reaches 0, power_off
-            mode = POWER_OFF;
+            slotOnOffPower();       // turn off device
+            ui->onOffToggle->setChecked(false);     // uncheck on off toggle
         }
     }
+
+    // if someone presses power off at any point, reset everything to default
+    if(mode == POWER_OFF){
+        model->setFreq(0);
+        model->setTime(0);
+        model->setWaveForm("None");
+        model->setPowerLevel(0);        // power level is 0 when powerred off
+    }
+
+
 
     // checking attachment status if in session
     if (mode == IN_SESSION){
@@ -81,11 +106,13 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
             detachCounter++;
             if (detachCounter >= 5){            // according to extension, if the electrodes are detached for 5 seconds, current/powerLevel goes to 100s
                 model->setPowerLevel(100);
+                ui->statusMessage->setText("Electrodes were detached for over 5 seconds during treatment, power reset to 100");
                 qDebug() << "electrodes were detached for more than 5 seconds, resetting power level to 100";
             }
         }
         if (model->getAttached() == true){
             detachCounter = 0;                  // if attached, reset detachCounter back to 0
+            ui->statusMessage->setText("Treatment in progress.");
         }
     }
 
@@ -106,9 +133,14 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
             model->setFreq(0);
             model->setTime(0);
             model->setWaveForm("None");
+            model->setPowerLevel(100);      // 100 when not powered off
 
             // changing state
-            mode == RECORDING;          // state is now RECORDING
+            mode = RECORDING;          // state is now RECORDING
+            ui->statusMessage->setText("Select record or do not record.");
+            ui->recordButton->setVisible(true);
+            ui->dontRecordButton->setVisible(true);
+
         }
 
     }
@@ -228,6 +260,16 @@ void MainWindow::slotUpPower(){
     if(mode == IN_SESSION){
         model->setPowerLevel(model->getPowerLevel() + 50);
         qDebug() << "increased power level by 50";
+
+        if(model->getPowerLevel() > 500){
+            ui->statusMessage->setText("WARNING! POWER LEVEL ABOVE 500");
+        }
+
+        if(model->getPowerLevel() > 700){
+            slotOnOffPower();       // turn off device
+            ui->onOffToggle->setChecked(false);     // uncheck on off toggle
+            ui->statusMessage->setText("POWER LEVEL TOO HIGH, POWERING OFF");
+        }
     }
     return;
 
@@ -237,6 +279,10 @@ void MainWindow::slotDownPower(){
     if(mode == IN_SESSION){
         model->setPowerLevel(model->getPowerLevel() - 100);
         qDebug() << "decreased power level by 100";
+    }
+    if(model->getPowerLevel() < 0){
+        model->setPowerLevel(0);
+        qDebug() << "power level cant be below 0";
     }
     return;
 
@@ -292,14 +338,26 @@ void MainWindow::slotOnOffPower(){
     model->turnOnOff();
     if(model->getTurnedOn()){
         mode = IDLE;
-        ui->statusMessage->setText(""); // Clear status message when device is on/off
+        model->setPowerLevel(100);
+        ui->statusMessage->setText("Device is on."); // Clear status message when device is on/off
         qDebug() << "Turned on device";
     } else {
         mode = POWER_OFF;
-        ui->statusMessage->setText("");
+        model->setPowerLevel(0);
+        ui->statusMessage->setText("Device is off.");
         qDebug() << "Turned off device";
 
     }
 }
 
+void MainWindow::slotRecord(){
+    qDebug() << "recording";
+    model->addEntry(model->getLastTreatment());
+    ui->historySelector->addItem(model->getLastTreatment()->toQString());
+    mode = IDLE;
+}
 
+void MainWindow::slotDontRecord(){
+    qDebug() << "not recording";
+    mode = IDLE;
+}

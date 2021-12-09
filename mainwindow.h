@@ -70,7 +70,10 @@ private slots:      // slot functions need to be defined in cpp before they can 
     void slotOnOffPower();
 
     void slotUpPower();     // up by 50
-    void slotDownPower();   // down by 100
+    void slotDownPower();   // down by 100 cant go below 0, should probably put extension logic in here
+
+    void slotRecord();
+    void slotDontRecord();
 
 
 

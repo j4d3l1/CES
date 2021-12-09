@@ -10,11 +10,20 @@ public:
     //Recording(int current, int frequency, QString wave, QDateTime start, QDateTime end);
     Recording();
     ~Recording();
-    QString stringToLabel();
+    QString toQString();        // previously called stringToLabel
+
+    //getters
+    int getRCurrent();
+    float getRFrequency();
+    QString getRWaveForm();
+    QDateTime getRStart();
+    QDateTime getREnd();
+    int getRDuration();
+
 
     //setters
     void setRCurrent(int);
-    void setRFrequency(int);
+    void setRFrequency(float);
     void setRWaveForm(QString);
     void setRStart(QDateTime);
     void setREnd(QDateTime);
@@ -22,7 +31,7 @@ public:
 
 private:
     int rCurrent;
-    int rFrequency;
+    float rFrequency;
     QString rWaveForm;
     QDateTime startTime;
     QDateTime endTime;
