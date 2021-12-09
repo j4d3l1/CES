@@ -4,12 +4,11 @@ CESDevice::CESDevice()
 {
     //default values
     turnedOn = false;
-    current = 0;      //default value for current when device is off, 100 when not off
     frequency = 0;
     time = 0;
     waveForm = "None";
     attached = false;
-    powerLevel = 0;
+    powerLevel = 0;     //default value for current when device is off, 100 when not off
     lastTreatment = new Recording();
     batteryPower = 100;
 

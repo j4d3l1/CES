@@ -39,14 +39,10 @@ private:
 
     //state of controller
     Mode mode;
+
     CESDevice *model;
     QTimer *displayTimer;
-
     int detachCounter;
-
-    //functions
-    void signalIdle();
-    void updateDisplay();
 
 private slots:      // slot functions need to be defined in cpp before they can be uncommented
 

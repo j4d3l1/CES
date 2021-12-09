@@ -56,13 +56,11 @@ public:
 
 private:
     bool turnedOn;
+    int powerLevel;
     bool attached;
-    int current;
     float frequency;
     QString waveForm;
-    int powerLevel;
     float batteryPower;
-    int countDownCycle;
     int time;
     int timer;
     QTime clock;
@@ -71,7 +69,7 @@ private:
     Recording *lastTreatment;
     QVector<Recording*> history;        // all past treatments
 
-    //void treatment();
+    //void treatment();     // this is all in displayTimerSlot
 
 public slots:
     // i don't think this class can handle any slots
