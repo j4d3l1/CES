@@ -37,6 +37,7 @@ private:
     void displayTime(CESDevice*);       // this displays the time selected
     void displayWaveForm(CESDevice*);   // this displays the waveForm selected
     void displayPowerLevel(CESDevice*);
+    void displayBattery(CESDevice*);
 
 
 

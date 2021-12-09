@@ -58,12 +58,21 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::displayTimerSlot(){
+void MainWindow::displayTimerSlot(){        // treatment logic in here?
     qDebug() << "\n";
     //qDebug() << "displayTimer...";
 
-    // battery should just be constantly draining if state isnt power_off, not just during treatment, just drop it 1% per loop
-    // of the timer, then when it reaches 0 turn the mode to power_off
+    if(mode != POWER_OFF){
+        // battery should just be constantly draining if state isnt power_off, not just during treatment, just drop it 1% per loop
+        // of the timer, then when it reaches 0 turn the mode to power_off
+        model->setBattery(model->getBattery() - 0.4);     // decrease battery by 0.4 each time, 1 is too fast
+
+        //if the battery reaches 10% or below, can display warning in an ifblock here
+
+        if(model->getBattery() <= 0){       // if the battery reaches 0, power_off
+            mode = POWER_OFF;
+        }
+    }
 
     //treatment logic in here???
     if(mode == IN_SESSION){

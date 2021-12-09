@@ -35,6 +35,7 @@ public:
     bool getTurnedOn();
     int getPowerLevel();
     Recording* getLastTreatment();
+    float getBattery();
 
     //setters
     void setAttached(bool);
@@ -43,6 +44,7 @@ public:
     void setFreq(float);
     void setPowerLevel(int);
     void setTimer(int);
+    void setBattery(float);
 
     void turnOnOff();
 
@@ -55,7 +57,7 @@ private:
     float frequency;
     QString waveForm;
     int powerLevel;
-    int batteryPower;
+    float batteryPower;
     int countDownCycle;
     int time;
     int timer;

@@ -24,6 +24,7 @@ void Display::displayAll(CESDevice *d){
     displayTime(d);
     displayWaveForm(d);
     displayPowerLevel(d);
+    displayBattery(d);
     return;
 }
 
@@ -82,6 +83,12 @@ void Display::displayPowerLevel(CESDevice *d){
     int i = d->getPowerLevel();
     QString s = QString::number(i);
     ui->powerLevelDisplay->setText(s);
+    return;
+}
+
+void Display::displayBattery(CESDevice *d){
+    float f = d->getBattery();
+    ui->batteryDisplay->setValue(f);
     return;
 }
 

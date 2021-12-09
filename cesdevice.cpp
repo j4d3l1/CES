@@ -11,6 +11,7 @@ CESDevice::CESDevice()
     attached = false;
     powerLevel = 0;
     lastTreatment = new Recording();
+    batteryPower = 100;
 
 }
 
@@ -52,6 +53,10 @@ Recording* CESDevice::getLastTreatment(){
     return lastTreatment;
 }
 
+float CESDevice::getBattery(){
+    return batteryPower;
+}
+
 void CESDevice::setTime(int i){
     time = i;
     return;
@@ -82,9 +87,16 @@ void CESDevice::setTimer(int i){
     return;
 }
 
+void CESDevice::setBattery(float f){
+    batteryPower = f;
+    return;
+}
+
 void CESDevice::turnOnOff(){
     turnedOn = !turnedOn;
 }
+
+
 
 
 
