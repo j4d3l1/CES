@@ -17,9 +17,6 @@ class Display : public QWidget
 public:
     explicit Display(QWidget *parent = nullptr);
     ~Display();
-
-
-
     void displayAll(CESDevice*);
 
 private:
