@@ -23,6 +23,7 @@ void Display::displayAll(CESDevice *d){
     displayFreq(d);
     displayTime(d);
     displayWaveForm(d);
+    displayPowerLevel(d);
     return;
 }
 
@@ -76,3 +77,11 @@ void Display::displayWaveForm(CESDevice *d){        // just shows the time selec
     ui->waveformSelected->setText(s);
     return;
 }
+
+void Display::displayPowerLevel(CESDevice *d){
+    int i = d->getPowerLevel();
+    QString s = QString::number(i);
+    ui->powerLevelDisplay->setText(s);
+    return;
+}
+

@@ -36,6 +36,7 @@ private:
     void displayFreq(CESDevice*);       // this displays the frequency selected
     void displayTime(CESDevice*);       // this displays the time selected
     void displayWaveForm(CESDevice*);   // this displays the waveForm selected
+    void displayPowerLevel(CESDevice*);
 
 
 

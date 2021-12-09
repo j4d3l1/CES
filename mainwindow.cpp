@@ -46,6 +46,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     //hooking up powerOnOff button
     connect(ui->onOffToggle, SIGNAL(released()), this, SLOT(slotOnOffPower()));
+
+    //hooking up upPowerLevel and downPowerLevel buttons
+    connect(ui->powerLevelUpButton, SIGNAL(released()), this, SLOT(slotUpPower()));
+    connect(ui->powerLevelDownButton, SIGNAL(released()), this, SLOT(slotDownPower()));
 }
 
 MainWindow::~MainWindow()
@@ -169,6 +173,24 @@ void MainWindow::slotFreq100(){
 
 }
 
+void MainWindow::slotUpPower(){
+    if(mode == IN_SESSION){
+        model->setPowerLevel(model->getPowerLevel() + 50);
+        qDebug() << "increased power level by 50";
+    }
+    return;
+
+}
+
+void MainWindow::slotDownPower(){
+    if(mode == IN_SESSION){
+        model->setPowerLevel(model->getPowerLevel() - 100);
+        qDebug() << "decreased power level by 100";
+    }
+    return;
+
+}
+
 void MainWindow::slotTreatment(){
     if(mode == IDLE){
         if (model->getFreq() == 0){     // 0 is the default freq when nothings been selected
@@ -192,6 +214,7 @@ void MainWindow::slotTreatment(){
 
     qDebug() << "cannot start treatment, device is not in IDLE";
     //treatment() can go here
+        // at end of treatment, the display freq and time should go back to 0, and selected wavelength should be blank again
 }
 
 

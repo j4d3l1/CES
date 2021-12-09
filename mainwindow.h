@@ -38,7 +38,7 @@ private:
     Display *display;
 
     //state of controller
-    Mode mode;            // need to define enum Mode first
+    Mode mode;
     CESDevice *model;
     QTimer *displayTimer;
 
@@ -66,6 +66,9 @@ private slots:      // slot functions need to be defined in cpp before they can 
 
     void slotTreatment();
     void slotOnOffPower();
+
+    void slotUpPower();     // up by 50
+    void slotDownPower();   // down by 100
 
 
 

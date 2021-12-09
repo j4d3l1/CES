@@ -33,12 +33,14 @@ public:
     QString getWaveForm();
     float getFreq();
     bool getTurnedOn();
+    int getPowerLevel();
 
     //setters
     void setAttached(bool);
     void setTime(int);
     void setWaveForm(QString);
     void setFreq(float);
+    void setPowerLevel(int);
 
     void turnOnOff();
 
@@ -50,6 +52,7 @@ private:
     int current;
     float frequency;
     QString waveForm;
+    int powerLevel;
     int batteryPower;
     int countDownCycle;
     int time;

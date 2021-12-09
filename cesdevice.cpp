@@ -7,7 +7,9 @@ CESDevice::CESDevice()
     current = 100;      //default value for current
     frequency = 0;
     time = 0;
+    waveForm = "None";
     attached = false;
+    powerLevel = 0;
 
 }
 
@@ -41,6 +43,10 @@ bool CESDevice::getTurnedOn(){
     return turnedOn;
 }
 
+int CESDevice::getPowerLevel(){
+    return powerLevel;
+}
+
 void CESDevice::setTime(int i){
     time = i;
     return;
@@ -58,6 +64,11 @@ void CESDevice::setFreq(float f){
 
 void CESDevice::setAttached(bool b){
     attached = b;
+    return;
+}
+
+void CESDevice::setPowerLevel(int i){
+    powerLevel = i;
     return;
 }
 
