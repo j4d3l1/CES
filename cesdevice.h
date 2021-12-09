@@ -12,6 +12,7 @@
 #include <QTimer>
 #include <QRandomGenerator>
 #include <QDateTime>
+#include <QString>
 
 #include "recording.h"
 
@@ -37,6 +38,7 @@ public:
     Recording* getLastTreatment();
     float getBattery();
     int getTimer();
+    QVector<Recording*>* getHistory();
 
     //setters
     void setAttached(bool);
@@ -48,8 +50,8 @@ public:
     void setBattery(float);
 
     void clearHistory();                    // empties history
-    void addEntry(Recording*);              // adds a recording to history
-
+    void addEntry(Recording*);    // adds a recording to history
+    Recording* findRecording(QString);
     void turnOnOff();
 
 

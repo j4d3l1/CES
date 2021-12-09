@@ -56,8 +56,10 @@ MainWindow::MainWindow(QWidget *parent)
     //they are default invisible
     ui->recordButton->setVisible(false);
     ui->dontRecordButton->setVisible(false);
+    ui->startRecordedTreatment->setVisible(false);
     connect(ui->recordButton, SIGNAL(released()), this, SLOT(slotRecord()));
     connect(ui->dontRecordButton, SIGNAL(released()), this, SLOT(slotDontRecord()));
+    connect(ui->startRecordedTreatment, SIGNAL(released()), this, SLOT(slotRepeatTreatment()));
 
 }
 
@@ -71,6 +73,12 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
     qDebug() << "\n";
     //qDebug() << "displayTimer...";
 
+    if(mode == IDLE){
+        if(!model->getHistory()->empty()){
+            //qDebug() << "Previous Treatments exist";
+            ui->startRecordedTreatment->setVisible(true);
+        }
+    }
     //if state isnt RECORDING, make record buttons unavailable so can't record
     if(mode != RECORDING){
         ui->recordButton->setVisible(false);
@@ -361,3 +369,41 @@ void MainWindow::slotDontRecord(){
     qDebug() << "not recording";
     mode = IDLE;
 }
+
+void MainWindow::slotRepeatTreatment(){
+    qDebug() << "Repeating treatment";
+
+    if(mode == IDLE){
+        qDebug() << "Obtaining selected";
+        QString selected = ui->historySelector->currentText();
+        Recording* treatment = model->findRecording(selected);
+        if(treatment != NULL){
+            qDebug() << "sucess";
+            if(model->getAttached() == false){
+                ui->statusMessage->setText("Cannot start treatment, electrodes not attached.");
+                qDebug() << "cannot start treatment, electrodes not attached";
+                return;
+            }
+
+            ui->statusMessage->setText("Repeating Treatment in progress.");
+            //update the model
+            model->setFreq(treatment->getRFrequency());
+            model->setWaveForm(treatment->getRWaveForm());
+            model->setTime(treatment->getRDuration());
+            model->setPowerLevel(treatment->getRCurrent());
+
+            //update the last treatment
+            Recording* last = model->getLastTreatment();
+            last->setRFrequency(treatment->getRFrequency());
+            last->setRWaveForm(treatment->getRWaveForm());
+            last->setRDuration(treatment->getRDuration());
+            last->setRStart(QDateTime::currentDateTime());
+
+            model->setTimer(treatment->getRDuration());
+            mode = IN_SESSION;
+            qDebug() << "Repeating Treatment in progress";
+
+        }
+    }
+}
+

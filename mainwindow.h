@@ -70,6 +70,7 @@ private slots:      // slot functions need to be defined in cpp before they can 
 
     void slotRecord();
     void slotDontRecord();
+    void slotRepeatTreatment();
 
 
 

@@ -61,6 +61,10 @@ int CESDevice::getTimer(){
     return timer;
 }
 
+QVector<Recording*>* CESDevice:: getHistory(){
+    return &history;
+}
+
 void CESDevice::setTime(int i){
     time = i;
     return;
@@ -116,7 +120,21 @@ void CESDevice::addEntry(Recording* r){
     entry->setRDuration(r->getRDuration());
 
     history.append(entry);
+}
 
+Recording* CESDevice::findRecording(QString s){
+    qDebug() << "Searching for " << s;
+
+    for(int i = 0; i < history.size(); i++){
+        QString current = history.at(i)->toQString();
+        qDebug() << "Comparing " << current;
+
+        if(QString::compare(current, s) == 0){
+            qDebug() << "FOUND ";
+            return history.at(i);
+        }
+    }
+    return NULL;
 }
 
 
