@@ -42,6 +42,8 @@ private:
     CESDevice *model;
     QTimer *displayTimer;
 
+    int detachCounter;
+
     //functions
     void signalIdle();
     void updateDisplay();

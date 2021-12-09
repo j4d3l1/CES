@@ -62,9 +62,9 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
     qDebug() << "\n";
     //qDebug() << "displayTimer...";
 
+    // draining battery
     if(mode != POWER_OFF){
-        // battery should just be constantly draining if state isnt power_off, not just during treatment, just drop it 1% per loop
-        // of the timer, then when it reaches 0 turn the mode to power_off
+        // battery should just be constantly draining if state isnt power_off
         model->setBattery(model->getBattery() - 0.4);     // decrease battery by 0.4 each time, 1 is too fast
 
         //if the battery reaches 10% or below, can display warning in an ifblock here
@@ -72,6 +72,18 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
         if(model->getBattery() <= 0){       // if the battery reaches 0, power_off
             mode = POWER_OFF;
         }
+    }
+
+    // checking attachment status
+    if (model->getAttached() == false){
+        detachCounter++;
+        if (detachCounter >= 5){            // according to extension, if the electrodes are detached for 5 seconds, current/powerLevel goes to 100s
+            model->setPowerLevel(100);
+            qDebug() << "electrodes were detached for more than 5 seconds, resetting power level to 100";
+        }
+    }
+    if (model->getAttached() == true){
+        detachCounter = 0;                  // if attached, reset detachCounter back to 0
     }
 
     //treatment logic in here???
@@ -224,6 +236,9 @@ void MainWindow::slotTreatment(){
                    model->getWaveForm() != "Beta" &&
                    model->getWaveForm() != "Gamma"){
             qDebug() << "cannot start treatment, no waveForm chosen";
+            return;
+        } else if(model->getAttached() == false){
+            qDebug() << "cannot start treatment, electrodes not attached";
             return;
         }
 
