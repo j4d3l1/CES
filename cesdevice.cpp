@@ -57,6 +57,10 @@ float CESDevice::getBattery(){
     return batteryPower;
 }
 
+int CESDevice::getTimer(){
+    return timer;
+}
+
 void CESDevice::setTime(int i){
     time = i;
     return;

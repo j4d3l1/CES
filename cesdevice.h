@@ -36,6 +36,7 @@ public:
     int getPowerLevel();
     Recording* getLastTreatment();
     float getBattery();
+    int getTimer();
 
     //setters
     void setAttached(bool);

@@ -74,23 +74,41 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
         }
     }
 
-    // checking attachment status
-    if (model->getAttached() == false){
-        detachCounter++;
-        if (detachCounter >= 5){            // according to extension, if the electrodes are detached for 5 seconds, current/powerLevel goes to 100s
-            model->setPowerLevel(100);
-            qDebug() << "electrodes were detached for more than 5 seconds, resetting power level to 100";
+    // checking attachment status if in session
+    if (mode == IN_SESSION){
+        if (model->getAttached() == false){
+            detachCounter++;
+            if (detachCounter >= 5){            // according to extension, if the electrodes are detached for 5 seconds, current/powerLevel goes to 100s
+                model->setPowerLevel(100);
+                qDebug() << "electrodes were detached for more than 5 seconds, resetting power level to 100";
+            }
+        }
+        if (model->getAttached() == true){
+            detachCounter = 0;                  // if attached, reset detachCounter back to 0
         }
     }
-    if (model->getAttached() == true){
-        detachCounter = 0;                  // if attached, reset detachCounter back to 0
-    }
 
-    //treatment logic in here???
+    //treatment timer logic in here???
     if(mode == IN_SESSION){
-        //if the electrodes are detached, go back to idle, reset freq, waveform, time, and timer to 0
-        //else
-            //timer counting down
+        // timer counting down, when it reaches 0, record endtime for lastTreatment
+            // also when it reaches 0, reset freq, wavelength, and time for cesDevice back to default 0, None, 0
+            // also set timer back to nothing
+        model->setTimer(model->getTimer() - 1); // decrement timer by 1
+
+        if (model->getTimer() == 0){    // when treatment timer gets to 0
+
+            // capturing variables for lastTreatment recording
+            model->getLastTreatment()->setREnd(QDateTime::currentDateTime());   // setting cesdevice's lastTreatment's end time
+            model->getLastTreatment()->setRCurrent(model->getPowerLevel());     // setting cesdevice's lastTreatment's current/power level
+
+            // resetting CESDevice
+            model->setFreq(0);
+            model->setTime(0);
+            model->setWaveForm("None");
+
+            // changing state
+            mode == RECORDING;          // state is now RECORDING
+        }
 
     }
 
@@ -243,8 +261,7 @@ void MainWindow::slotTreatment(){
         }
 
 
-        mode = IN_SESSION;
-        qDebug() << "starting treatment now";
+        // preparing to start treatment:
 
         // CAPTURE WAVEFORM, FREQUENCY, DURATION, AND TIMESTART HERE!!! FOR CESDevice's LastTreatment
         // CAPTURE current, endtime, at the end of the treatment - inside displayTimer?
@@ -253,6 +270,12 @@ void MainWindow::slotTreatment(){
         last->setRWaveForm(model->getWaveForm());
         last->setRDuration(model->getTime());
         last->setRStart(QDateTime::currentDateTime());
+
+        // setting timer to time
+        model->setTimer(model->getTime());
+
+        mode = IN_SESSION;
+        qDebug() << "starting treatment now";
         return;
     }
 

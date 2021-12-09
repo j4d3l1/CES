@@ -25,6 +25,7 @@ void Display::displayAll(CESDevice *d){
     displayWaveForm(d);
     displayPowerLevel(d);
     displayBattery(d);
+    displayCountDown(d);
     return;
 }
 
@@ -39,12 +40,19 @@ void Display::displayAttached(CESDevice *d){
 }
 
 void Display::displayCountDown(CESDevice *d){        // was previously called displayTime
+    /*
     QTime time = QTime::currentTime();
     QString text = time.toString("hh:mm");
 
     if ((time.second() % 2) == 0)
           text[2] = ' ';
     ui->timerDisplay->display(text);
+    */
+
+    int i = d->getTimer();
+    ui->timerDisplay->display(i);
+    return;
+
 }
 
 void Display::displayClock(CESDevice *d){
@@ -91,4 +99,5 @@ void Display::displayBattery(CESDevice *d){
     ui->batteryDisplay->setValue(f);
     return;
 }
+
 
