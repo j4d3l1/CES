@@ -95,9 +95,10 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
             ui->statusMessage->setText("WARNING! BATTERY LEVEL BELOW 5%!");
         }
 
-        if(model->getBattery() <= 0){       // if the battery reaches 0, power_off
+        if(model->getBattery() <= 2){       // if the battery reaches 0, power_off
             slotOnOffPower();       // turn off device
             ui->onOffToggle->setChecked(false);     // uncheck on off toggle
+            ui->onOffToggle->setVisible(false);
         }
     }
 
@@ -107,6 +108,7 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
         model->setTime(0);
         model->setWaveForm("None");
         model->setPowerLevel(0);        // power level is 0 when powerred off
+        ui->onOffToggle->setChecked(false);     // uncheck on off toggle
     }
 
 
