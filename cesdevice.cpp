@@ -101,12 +101,15 @@ void CESDevice::setBattery(float f){
 }
 
 void CESDevice::turnOnOff(){
-    turnedOn = !turnedOn;
+    if(batteryPower > 2){
+        turnedOn = !turnedOn;
+    } else {
+        turnedOn = false;
+    }
 }
 
 void CESDevice::clearHistory(){
     history.clear();
-
 }
 
 void CESDevice::addEntry(Recording* r){
