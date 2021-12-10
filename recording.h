@@ -7,10 +7,9 @@
 class Recording
 {
 public:
-    //Recording(int current, int frequency, QString wave, QDateTime start, QDateTime end);
     Recording();
     ~Recording();
-    QString toQString();        // previously called stringToLabel
+    QString toQString();
 
     //getters
     int getRCurrent();
@@ -19,7 +18,6 @@ public:
     QDateTime getRStart();
     QDateTime getREnd();
     int getRDuration();
-
 
     //setters
     void setRCurrent(int);

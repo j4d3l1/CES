@@ -29,8 +29,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
-
 private:
     Ui::MainWindow *ui;
 
@@ -43,9 +41,9 @@ private:
     CESDevice *model;
     QTimer *displayTimer;
     int detachCounter;
-    int idleCounter;
+    int idleCounter;    //counter for auto-shut off after 30min
 
-private slots:      // slot functions need to be defined in cpp before they can be uncommented
+private slots:
 
     void displayTimerSlot();
     void slotAttachToggle();
@@ -66,7 +64,7 @@ private slots:      // slot functions need to be defined in cpp before they can 
     void slotOnOffPower();
 
     void slotUpPower();     // up by 50
-    void slotDownPower();   // down by 100 cant go below 0, should probably put extension logic in here
+    void slotDownPower();   // down by 100 cant go below 0
 
     void slotRecord();
     void slotDontRecord();

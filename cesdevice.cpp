@@ -113,7 +113,7 @@ void CESDevice::clearHistory(){
 }
 
 void CESDevice::addEntry(Recording* r){
-    // need to make a copy of r to put in history, r doesn't change
+    //make a copy of r so it doesn't change
     Recording* entry = new Recording();
     entry->setRCurrent(r->getRCurrent());
     entry->setRFrequency(r->getRFrequency());
@@ -126,14 +126,9 @@ void CESDevice::addEntry(Recording* r){
 }
 
 Recording* CESDevice::findRecording(QString s){
-    qDebug() << "Searching for " << s;
-
     for(int i = 0; i < history.size(); i++){
         QString current = history.at(i)->toQString();
-        qDebug() << "Comparing " << current;
-
         if(QString::compare(current, s) == 0){
-            qDebug() << "FOUND ";
             return history.at(i);
         }
     }

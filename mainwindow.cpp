@@ -71,11 +71,8 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::displayTimerSlot(){        // treatment logic in here?
-    qDebug() << "\n";
-    //qDebug() << "displayTimer...";
+void MainWindow::displayTimerSlot(){
 
-    //qDebug() << "Idle Timer: " << idleCounter;
     if(mode == IDLE || mode == RECORDING){
         idleCounter++;
     }
@@ -87,10 +84,10 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
 
     if(mode == IDLE){
         if(!model->getHistory()->empty()){
-            //qDebug() << "Previous Treatments exist";
             ui->startRecordedTreatment->setVisible(true);
         }
     }
+
     //if state isnt RECORDING, make record buttons unavailable so can't record
     if(mode != RECORDING){
         ui->recordButton->setVisible(false);
@@ -102,12 +99,12 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
         // battery should just be constantly draining if state isnt power_off
         model->setBattery(model->getBattery() - 0.4);     // decrease battery by 0.4 each time, 1 is too fast
 
-        //if the battery reaches 10% or below, can display warning in an ifblock here
+        //if the battery reaches 5% or below, can display warning in an ifblock here
         if (model->getBattery() < 5 && model->getBattery() > 2){
             ui->statusMessage->setText("WARNING! BATTERY LEVEL BELOW 5%!");
         }
 
-        if(model->getBattery() <= 2){       // if the battery reaches 0, power_off
+        if(model->getBattery() <= 2){       // if the battery reaches %2, power_off
             slotOnOffPower();       // turn off device
             ui->onOffToggle->setChecked(false);     // uncheck on off toggle
             ui->onOffToggle->setVisible(false);
@@ -127,7 +124,7 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
     if (mode == IN_SESSION){
         if (model->getAttached() == false){
             detachCounter++;
-            if (detachCounter >= 5){            // according to extension, if the electrodes are detached for 5 seconds, current/powerLevel goes to 100s
+            if (detachCounter >= 5){   // according to extension, if the electrodes are detached for 5 seconds, current/powerLevel goes to 100s
 
                 // resetting CESDevice
                 model->setFreq(0);
@@ -136,11 +133,9 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
                 model->setPowerLevel(100);      // 100 when not powered off
 
                 // changing state
-                mode = IDLE;          // state is now RECORDING
+                mode = IDLE;
 
                 ui->statusMessage->setText("Electrodes were detached for over 5 seconds during treatment, back to IDLE");
-                qDebug() << "electrodes were detached for more than 5 seconds, resetting mode to IDLE";
-
             }
         }
         if (model->getAttached() == true){
@@ -149,7 +144,6 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
         }
     }
 
-    //treatment timer logic in here???
     if(mode == IN_SESSION){
         // timer counting down, when it reaches 0, record endtime for lastTreatment
             // also when it reaches 0, reset freq, wavelength, and time for cesDevice back to default 0, None, 0
@@ -185,14 +179,7 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
 void MainWindow::slotAttachToggle(){
     idleCounter = 0;
 
-    qDebug() << "toggled";
     model->setAttached(!model->getAttached());
-    if (model->getAttached()){
-        qDebug() << "attached is true";
-    }else{
-        qDebug() << "attached is false";
-    }
-    //return;
 }
 
 void MainWindow::slotTime20(){
@@ -200,9 +187,6 @@ void MainWindow::slotTime20(){
 
     if(mode == IDLE){
         model->setTime(20);
-        if(model->getTime() == 20){
-            qDebug() << "time is now 20";
-        }
     }
     return;
 }
@@ -212,9 +196,6 @@ void MainWindow::slotTime40(){
 
     if(mode == IDLE){
         model->setTime(40);
-        if(model->getTime() == 40){
-            qDebug() << "time is now 40";
-        }
     }
     return;
 }
@@ -224,9 +205,6 @@ void MainWindow::slotTime60(){
 
     if(mode == IDLE){
         model->setTime(60);
-        if(model->getTime() == 60){
-            qDebug() << "time is now 60";
-        }
     }
     return;
 }
@@ -236,9 +214,6 @@ void MainWindow::slotAlpha(){
 
     if(mode == IDLE){
         model->setWaveForm("Alpha");
-        if(model->getWaveForm() == "Alpha"){
-            qDebug() << "waveForm is now alpha";
-        }
     }
     return;
 }
@@ -249,9 +224,6 @@ void MainWindow::slotBeta(){
 
     if(mode == IDLE){
         model->setWaveForm("Beta");
-        if(model->getWaveForm() == "Beta"){
-            qDebug() << "waveForm is now beta";
-        }
     }
     return;
 }
@@ -261,9 +233,6 @@ void MainWindow::slotGamma(){
 
     if(mode == IDLE){
         model->setWaveForm("Gamma");
-        if(model->getWaveForm() == "Gamma"){
-            qDebug() << "waveForm is now gamma";
-        }
     }
     return;
 }
@@ -273,9 +242,6 @@ void MainWindow::slotFreq5(){
 
     if(mode == IDLE){
         model->setFreq(0.5);
-        if(model->getFreq() == 0.5){
-            qDebug() << "frequency is now 0.5";
-        }
     }
     return;
 }
@@ -285,9 +251,6 @@ void MainWindow::slotFreq77(){
 
     if(mode == IDLE){
         model->setFreq(77);
-        if(model->getFreq() == 77){
-            qDebug() << "frequency is now 77";
-        }
     }
     return;
 }
@@ -297,9 +260,6 @@ void MainWindow::slotFreq100(){
 
     if(mode == IDLE){
         model->setFreq(100);
-        if(model->getFreq() == 100){
-            qDebug() << "frequency is now 100";
-        }
     }
     return;
 
@@ -310,7 +270,6 @@ void MainWindow::slotUpPower(){
 
     if(mode == IN_SESSION){
         model->setPowerLevel(model->getPowerLevel() + 50);
-        qDebug() << "increased power level by 50";
 
         if(model->getPowerLevel() > 500){
             ui->statusMessage->setText("WARNING! POWER LEVEL ABOVE 500");
@@ -331,11 +290,9 @@ void MainWindow::slotDownPower(){
 
     if(mode == IN_SESSION){
         model->setPowerLevel(model->getPowerLevel() - 100);
-        qDebug() << "decreased power level by 100";
     }
     if(model->getPowerLevel() < 0){
         model->setPowerLevel(0);
-        qDebug() << "power level cant be below 0";
     }
     return;
 
@@ -347,21 +304,17 @@ void MainWindow::slotTreatment(){
     if(mode == IDLE){
         if (model->getFreq() == 0){     // 0 is the default freq when nothings been selected
             ui->statusMessage->setText("Cannot start treatment, no frequency chosen.");
-            qDebug() << "cannot start treatment, no frequency chosen";
             return;
         } else if (model->getTime() == 0){  // 0 is default time when nothings been selected
             ui->statusMessage->setText("Cannot start treatment, no time chosen.");
-            qDebug() << "cannot start treatment, no time chosen";
             return;
         } else if (model->getWaveForm() != "Alpha" &&
                    model->getWaveForm() != "Beta" &&
                    model->getWaveForm() != "Gamma"){
-            qDebug() << "cannot start treatment, no waveForm chosen";
              ui->statusMessage->setText("Cannot start treatment, no waveForm chosen.");
             return;
         } else if(model->getAttached() == false){
             ui->statusMessage->setText("Cannot start treatment, electrodes not attached.");
-            qDebug() << "cannot start treatment, electrodes not attached";
             return;
         }
 
@@ -380,13 +333,9 @@ void MainWindow::slotTreatment(){
         model->setTimer(model->getTime());
 
         mode = IN_SESSION;
-        qDebug() << "starting treatment now";
         return;
     }
     ui->statusMessage->setText("Cannot start treatment, device is not in IDLE.");
-    qDebug() << "cannot start treatment, device is not in IDLE";
-    //model->treatment() can go here??
-        // at end of treatment, the display freq and time should go back to 0, and selected wavelength should be blank again
 }
 
 void MainWindow::slotOnOffPower(){
@@ -397,20 +346,16 @@ void MainWindow::slotOnOffPower(){
         mode = IDLE;
         model->setPowerLevel(100);
         ui->statusMessage->setText("Device is on."); // Clear status message when device is on/off
-        qDebug() << "Turned on device";
     } else {
         mode = POWER_OFF;
         model->setPowerLevel(0);
         ui->statusMessage->setText("Device is off.");
-        qDebug() << "Turned off device";
-
     }
 }
 
 void MainWindow::slotRecord(){
     idleCounter = 0;
 
-    qDebug() << "recording";
     model->addEntry(model->getLastTreatment());
     ui->historySelector->addItem(model->getLastTreatment()->toQString());
     mode = IDLE;
@@ -418,29 +363,23 @@ void MainWindow::slotRecord(){
 
 void MainWindow::slotDontRecord(){
     idleCounter = 0;
-
-    qDebug() << "not recording";
     mode = IDLE;
 }
 
 void MainWindow::slotRepeatTreatment(){
     idleCounter = 0;
 
-    qDebug() << "Repeating treatment";
-
     if(mode == IDLE){
-        qDebug() << "Obtaining selected";
         QString selected = ui->historySelector->currentText();
         Recording* treatment = model->findRecording(selected);
         if(treatment != NULL){
-            qDebug() << "sucess";
             if(model->getAttached() == false){
                 ui->statusMessage->setText("Cannot start treatment, electrodes not attached.");
-                qDebug() << "cannot start treatment, electrodes not attached";
                 return;
             }
 
             ui->statusMessage->setText("Repeating Treatment in progress.");
+
             //update the model
             model->setFreq(treatment->getRFrequency());
             model->setWaveForm(treatment->getRWaveForm());
@@ -456,8 +395,6 @@ void MainWindow::slotRepeatTreatment(){
 
             model->setTimer(treatment->getRDuration());
             mode = IN_SESSION;
-            qDebug() << "Repeating Treatment in progress";
-
         }
     }
 }

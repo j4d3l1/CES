@@ -2,7 +2,6 @@
 #define DISPLAY_H
 
 #include <QWidget>
-
 #include "cesdevice.h"
 
 
