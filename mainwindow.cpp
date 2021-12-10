@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(displayTimer, SIGNAL(timeout()), this, SLOT(displayTimerSlot()));
     displayTimer->start(1000);
 
+    //idle timer set up
+    idleCounter = 0;
 
     //hooking up attach/detach toggle
     connect(ui->attachToggle, SIGNAL(pressed()), this, SLOT(slotAttachToggle()));
@@ -73,6 +75,16 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
     qDebug() << "\n";
     //qDebug() << "displayTimer...";
 
+    //qDebug() << "Idle Timer: " << idleCounter;
+    if(mode == IDLE || mode == RECORDING){
+        idleCounter++;
+    }
+
+    //if no buttons have been pushed for 30min, turn off power
+    if((mode == IDLE || mode == RECORDING) && idleCounter > 1800){
+        mode = POWER_OFF;
+    }
+
     if(mode == IDLE){
         if(!model->getHistory()->empty()){
             //qDebug() << "Previous Treatments exist";
@@ -110,8 +122,6 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
         model->setPowerLevel(0);        // power level is 0 when powerred off
         ui->onOffToggle->setChecked(false);     // uncheck on off toggle
     }
-
-
 
     // checking attachment status if in session
     if (mode == IN_SESSION){
@@ -173,6 +183,8 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
 
 
 void MainWindow::slotAttachToggle(){
+    idleCounter = 0;
+
     qDebug() << "toggled";
     model->setAttached(!model->getAttached());
     if (model->getAttached()){
@@ -184,6 +196,8 @@ void MainWindow::slotAttachToggle(){
 }
 
 void MainWindow::slotTime20(){
+    idleCounter = 0;
+
     if(mode == IDLE){
         model->setTime(20);
         if(model->getTime() == 20){
@@ -194,8 +208,9 @@ void MainWindow::slotTime20(){
 }
 
 void MainWindow::slotTime40(){
-    if(mode == IDLE){
+    idleCounter = 0;
 
+    if(mode == IDLE){
         model->setTime(40);
         if(model->getTime() == 40){
             qDebug() << "time is now 40";
@@ -205,8 +220,9 @@ void MainWindow::slotTime40(){
 }
 
 void MainWindow::slotTime60(){
-    if(mode == IDLE){
+    idleCounter = 0;
 
+    if(mode == IDLE){
         model->setTime(60);
         if(model->getTime() == 60){
             qDebug() << "time is now 60";
@@ -216,8 +232,9 @@ void MainWindow::slotTime60(){
 }
 
 void MainWindow::slotAlpha(){
-    if(mode == IDLE){
+    idleCounter = 0;
 
+    if(mode == IDLE){
         model->setWaveForm("Alpha");
         if(model->getWaveForm() == "Alpha"){
             qDebug() << "waveForm is now alpha";
@@ -228,8 +245,9 @@ void MainWindow::slotAlpha(){
 
 
 void MainWindow::slotBeta(){
-    if(mode == IDLE){
+    idleCounter = 0;
 
+    if(mode == IDLE){
         model->setWaveForm("Beta");
         if(model->getWaveForm() == "Beta"){
             qDebug() << "waveForm is now beta";
@@ -239,6 +257,8 @@ void MainWindow::slotBeta(){
 }
 
 void MainWindow::slotGamma(){
+    idleCounter = 0;
+
     if(mode == IDLE){
         model->setWaveForm("Gamma");
         if(model->getWaveForm() == "Gamma"){
@@ -249,6 +269,8 @@ void MainWindow::slotGamma(){
 }
 
 void MainWindow::slotFreq5(){
+    idleCounter = 0;
+
     if(mode == IDLE){
         model->setFreq(0.5);
         if(model->getFreq() == 0.5){
@@ -259,6 +281,8 @@ void MainWindow::slotFreq5(){
 }
 
 void MainWindow::slotFreq77(){
+    idleCounter = 0;
+
     if(mode == IDLE){
         model->setFreq(77);
         if(model->getFreq() == 77){
@@ -269,6 +293,8 @@ void MainWindow::slotFreq77(){
 }
 
 void MainWindow::slotFreq100(){
+    idleCounter = 0;
+
     if(mode == IDLE){
         model->setFreq(100);
         if(model->getFreq() == 100){
@@ -280,6 +306,8 @@ void MainWindow::slotFreq100(){
 }
 
 void MainWindow::slotUpPower(){
+    idleCounter = 0;
+
     if(mode == IN_SESSION){
         model->setPowerLevel(model->getPowerLevel() + 50);
         qDebug() << "increased power level by 50";
@@ -299,6 +327,8 @@ void MainWindow::slotUpPower(){
 }
 
 void MainWindow::slotDownPower(){
+    idleCounter = 0;
+
     if(mode == IN_SESSION){
         model->setPowerLevel(model->getPowerLevel() - 100);
         qDebug() << "decreased power level by 100";
@@ -312,6 +342,8 @@ void MainWindow::slotDownPower(){
 }
 
 void MainWindow::slotTreatment(){
+    idleCounter = 0;
+
     if(mode == IDLE){
         if (model->getFreq() == 0){     // 0 is the default freq when nothings been selected
             ui->statusMessage->setText("Cannot start treatment, no frequency chosen.");
@@ -358,6 +390,8 @@ void MainWindow::slotTreatment(){
 }
 
 void MainWindow::slotOnOffPower(){
+    idleCounter = 0;
+
     model->turnOnOff();
     if(model->getTurnedOn()){
         mode = IDLE;
@@ -374,6 +408,8 @@ void MainWindow::slotOnOffPower(){
 }
 
 void MainWindow::slotRecord(){
+    idleCounter = 0;
+
     qDebug() << "recording";
     model->addEntry(model->getLastTreatment());
     ui->historySelector->addItem(model->getLastTreatment()->toQString());
@@ -381,11 +417,15 @@ void MainWindow::slotRecord(){
 }
 
 void MainWindow::slotDontRecord(){
+    idleCounter = 0;
+
     qDebug() << "not recording";
     mode = IDLE;
 }
 
 void MainWindow::slotRepeatTreatment(){
+    idleCounter = 0;
+
     qDebug() << "Repeating treatment";
 
     if(mode == IDLE){

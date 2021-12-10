@@ -43,11 +43,11 @@ private:
     CESDevice *model;
     QTimer *displayTimer;
     int detachCounter;
+    int idleCounter;
 
 private slots:      // slot functions need to be defined in cpp before they can be uncommented
 
     void displayTimerSlot();
-
     void slotAttachToggle();
 
     void slotTime20();
