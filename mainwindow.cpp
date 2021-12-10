@@ -116,9 +116,19 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
         if (model->getAttached() == false){
             detachCounter++;
             if (detachCounter >= 5){            // according to extension, if the electrodes are detached for 5 seconds, current/powerLevel goes to 100s
-                model->setPowerLevel(100);
-                ui->statusMessage->setText("Electrodes were detached for over 5 seconds during treatment, power reset to 100");
-                qDebug() << "electrodes were detached for more than 5 seconds, resetting power level to 100";
+
+                // resetting CESDevice
+                model->setFreq(0);
+                model->setTime(0);
+                model->setWaveForm("None");
+                model->setPowerLevel(100);      // 100 when not powered off
+
+                // changing state
+                mode = IDLE;          // state is now RECORDING
+
+                ui->statusMessage->setText("Electrodes were detached for over 5 seconds during treatment, back to IDLE");
+                qDebug() << "electrodes were detached for more than 5 seconds, resetting mode to IDLE";
+
             }
         }
         if (model->getAttached() == true){
