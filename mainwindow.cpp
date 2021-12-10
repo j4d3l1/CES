@@ -88,9 +88,12 @@ void MainWindow::displayTimerSlot(){        // treatment logic in here?
     // draining battery
     if(mode != POWER_OFF){
         // battery should just be constantly draining if state isnt power_off
-        model->setBattery(model->getBattery() - 3);     // decrease battery by 0.4 each time, 1 is too fast
+        model->setBattery(model->getBattery() - 0.4);     // decrease battery by 0.4 each time, 1 is too fast
 
         //if the battery reaches 10% or below, can display warning in an ifblock here
+        if (model->getBattery() < 5 && model->getBattery() > 2){
+            ui->statusMessage->setText("WARNING! BATTERY LEVEL BELOW 5%!");
+        }
 
         if(model->getBattery() <= 2){       // if the battery reaches 0, power_off
             slotOnOffPower();       // turn off device
