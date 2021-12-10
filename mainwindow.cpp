@@ -78,7 +78,8 @@ void MainWindow::displayTimerSlot(){
     }
 
     //if no buttons have been pushed for 30min, turn off power
-    if((mode == IDLE || mode == RECORDING) && idleCounter > 1800){
+    if((mode == IDLE || mode == RECORDING) && idleCounter > 30){
+        ui->statusMessage->setText("Device has not been used in 30 minues, powering off.");
         mode = POWER_OFF;
     }
 
